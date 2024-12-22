@@ -6,7 +6,7 @@ DEVICE_PATH := /dev/specific # device path
 obj-m := specific.o
 
 # Default target: Build both kernel module and task scheduler
-all: kernel user install
+all: kernel thread install create
 
 # Build kernel module
 kernel:
