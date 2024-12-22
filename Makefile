@@ -38,18 +38,15 @@ create:
 	fi
 
 # Remove kernel module and remove the device file
-remove:
-	# Remove the kernel module
-	sudo rmmod specific
-	# Remove the device file
-	sudo rm -f $(DEVICE_PATH)
-
-# Clean up build files and device files
 clean:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 	rm -f threads
 	# Remove kernel module binary
 	rm -f specific.ko
+	# Remove the kernel module
+	sudo rmmod specific
+	# Remove the device file
+	sudo rm -f $(DEVICE_PATH)
 
 # Declare phony targets
-.PHONY: all kernel thread install create remove clean
+.PHONY: all kernel thread install create clean

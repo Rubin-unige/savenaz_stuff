@@ -121,11 +121,11 @@ main()
     	// compute U
 	double U = WCET[0]/periods[0]+WCET[1]/periods[1]+WCET[2]/periods[2];
 
-    	// compute Ulub by considering the fact that we have harmonic relationships between periods
-	double Ulub = 1;
+    // compute Ulub by considering the fact that we have harmonic relationships between periods
+	//double Ulub = 1;
     	
 	//if there are no harmonic relationships, use the following formula instead
-	//double Ulub = NPERIODICTASKS*(pow(2.0,(1.0/NPERIODICTASKS)) -1);
+	double Ulub = NPERIODICTASKS*(pow(2.0,(1.0/NPERIODICTASKS)) -1);
 	
 	//check the sufficient conditions: if they are not satisfied, exit  
   	if (U > Ulub)
@@ -196,12 +196,6 @@ main()
 		next_arrival_time[i].tv_sec= time_1.tv_sec + next_arrival_nanoseconds/1000000000;
        		missed_deadlines[i] = 0;
     	}
-	// Aperiodic task with lower priority (background)
-    	pthread_attr_init(&(attributes[3]));
-    	pthread_attr_setschedpolicy(&(attributes[3]), SCHED_FIFO);
-   	 parameters[3].sched_priority = 0;
-    	pthread_attr_setschedparam(&(attributes[3]), &(parameters[3]));
-	
 
 	// create all threads(pthread_create)
   	iret[0] = pthread_create( &(thread_id[0]), &(attributes[0]), task1, NULL);
@@ -214,7 +208,7 @@ main()
   	pthread_join( thread_id[0], NULL);
   	pthread_join( thread_id[1], NULL);
   	pthread_join( thread_id[2], NULL);
-  	pthread_join( thread_id[3], NULL);
+  	//pthread_join( thread_id[3], NULL);
 
   	// set the next arrival time for each task. This is not the beginning of the first
 	// period, but the end of the first period and beginning of the next one. 
@@ -260,8 +254,8 @@ void task1_code() {
         return;
     }
     // write the end of message and close it
-    char end_message[4] = "]1";
-    write(fd, end_message, 3);  // Write ']1'
+    char end_message[4] = "1]";
+    write(fd, end_message, 3);  // Write '1]'
     close(fd);
 
 }
@@ -315,7 +309,7 @@ void task2_code() {
         return;
     }
     // write the end of message in driver and close it
-    char end_message[4] = "]2";
+    char end_message[4] = "2]";
     if (write(fd, end_message, 3) < 0) {
         perror("Error writing to driver");
         close(fd);
@@ -370,8 +364,8 @@ void task3_code() {
         return;
     }
     // write end of message in driver and close it
-    char end_message[4] = "]3";
-    write(fd, end_message, 3);  // Write ']3'
+    char end_message[4] = "3]";
+    write(fd, end_message, 3);  // Write '3]'
     close(fd);
  }
 
@@ -418,8 +412,8 @@ void task4_code() {
         return;
     }
     // write end of message in the driver and close it 
-    char end_message[4] = "]4";
-    write(fd, end_message, 3);  // Write ']4'
+    char end_message[4] = "4]";
+    write(fd, end_message, 3);  // Write '4]'
     close(fd);
 }
 
