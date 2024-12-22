@@ -1,1 +1,0 @@
-cmd_/home/rubin/sarvenaz_stuff/specific.ko := ld -r  -m elf_x86_64 -z noexecstack   --build-id=sha1  -T scripts/module.lds -o /home/rubin/sarvenaz_stuff/specific.ko /home/rubin/sarvenaz_stuff/specific.o /home/rubin/sarvenaz_stuff/specific.mod.o;  true
